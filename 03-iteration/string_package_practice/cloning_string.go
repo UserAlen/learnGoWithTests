@@ -6,8 +6,8 @@ import (
 )
 
 func CloningString(character string, num int) string {
-	var result string = character
-	for i := 0; i >= num; i++ {
+	var result string
+	for i := 0; i < num; i++ {
 		result += strings.Clone(character)
 	}
 	return result
