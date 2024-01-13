@@ -10,17 +10,18 @@ func TestCompare(t *testing.T) {
 	t.Run("Equal test", func(t *testing.T) {
 		got := Compare("good", "good")
 		want := "Equal"
-		if got != want {
-			t.Errorf("got %q want %q", got, want)
-		}
+		assertCorrectMessage(got, want, t)
 	})
 	t.Run("Not Equal test", func(t *testing.T) {
 		got := Compare("food", "foos")
 		want := "Not Equal"
-		if got != want {
-			t.Errorf("got %q want %q", got, want)
-		}
+		assertCorrectMessage(got, want, t)
 	})
+}
+func assertCorrectMessage(got, want string, t *testing.T) {
+	if got != want {
+		t.Errorf("got %q want %q", got, want)
+	}
 }
 
 func ExampleCompare() {
