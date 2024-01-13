@@ -30,7 +30,7 @@ func ExampleCompare() {
 	// Output: true
 }
 
-func BenchmarkCompare(b *testing.b) {
+func BenchmarkCompare(b *testing.B) {
 	for i := 0; i <= b.N; i++ {
 		Contains("my name is", "name")
 	}
