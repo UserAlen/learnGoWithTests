@@ -33,3 +33,36 @@ func SumAll(numbersToSum ...[]int) []int {
 	}
 	return sums
 }
+
+func SumAllTails(numToSum ...[]int) []int {
+	var result []int
+
+	for _, nums := range numToSum {
+		tail := nums[1:]
+		result = append(result, Sum(tail))
+	}
+	return result
+}
+
+// My version before looking at answer
+
+/* func SumAllTails(numSlices ...[]int) []int {
+	var result []int
+
+	for _, numSlice := range numSlices {
+		result = append(result, Sum(removeSliceHead(numSlice)))
+	}
+	return result
+}
+
+func removeSliceHead(nums []int) []int {
+	var newNums []int
+
+	for i, num := range nums {
+		if i == 0 {
+			continue
+		}
+		newNums = append(newNums, num)
+	}
+	return newNums
+} */
