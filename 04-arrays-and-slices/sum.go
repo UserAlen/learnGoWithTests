@@ -38,6 +38,10 @@ func SumAllTails(numToSum ...[]int) []int {
 	var result []int
 
 	for _, nums := range numToSum {
+		if len(nums) == 0 {
+			result = append(result, 0)
+			continue
+		}
 		tail := nums[1:]
 		result = append(result, Sum(tail))
 	}

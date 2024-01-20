@@ -34,13 +34,34 @@ func TestSumAll(t *testing.T) {
 }
 
 func TestSumAllTails(t *testing.T) {
-	/* t.Run("make the sums of some slices")
-	t.Run("safely sum empty slices") */
 
-	got := SumAllTails([]int{1, 2}, []int{3, 5, 6})
-	want := []int{2, 5 + 6}
+	checkSums := func(t *testing.T, got, want []int) {
+		t.Helper()
 
-	if !slices.Equal(got, want) {
-		t.Errorf("got %v want %v", got, want)
+		// choosing !slices.Equal or !reflect.DeepEqual doesn't matter - the func covers type-safety
+		if !slices.Equal(got, want) {
+			t.Errorf("got %v want %v", got, want)
+		}
 	}
+
+	//checking the checksums type-safety
+	/* 	t.Run("checking the checkSums type-safety", func(t *testing.T) {
+		got := 1234
+		want := "hello"
+		checkSums(t, got, want)
+	}) */
+
+	t.Run("make the sums of some slices", func(t *testing.T) {
+		got := SumAllTails([]int{1, 2}, []int{3, 5, 6})
+		want := []int{2, 5 + 6}
+
+		checkSums(t, got, want)
+	})
+	t.Run("safely sum empty slices", func(t *testing.T) {
+		got := SumAllTails([]int{}, []int{4, 9})
+		want := []int{0, 9}
+
+		checkSums(t, got, want)
+	})
+
 }
