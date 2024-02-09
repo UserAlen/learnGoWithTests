@@ -10,7 +10,7 @@ func Replace(sentence, sentenceWord, wordToReplace string) string {
 		// - Sentence needs to be the same except sentenceWord -> wordToReplace
 
 		var sentenceWords []string = SentenceToWords(sentence)
-		for i, word := range sentenceWords {
+		for _, word := range sentenceWords {
 			if strings.ToLower(word) == strings.ToLower(sentenceWord) {
 				//idk
 			}
