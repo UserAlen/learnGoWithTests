@@ -10,27 +10,24 @@ func TestWallet(t *testing.T) {
 		wallet := Wallet{}
 		wallet.Deposit(Bitcoin(10))
 		/* fmt.Printf("address of balance in test is %p \n", &wallet.balance) */
-		want := Bitcoin(10)
 
-		assertBalance(t, wallet, want)
+		assertBalance(t, wallet, Bitcoin(10))
 	})
 
 	t.Run("withdraw", func(t *testing.T) {
 		wallet := Wallet{balance: 20}
-		wallet.Withdraw(Bitcoin(10))
-		want := Bitcoin(10)
+		err := wallet.Withdraw(Bitcoin(10))
 
-		assertBalance(t, wallet, want)
-
+		assertNoError(t, err)
+		assertBalance(t, wallet, Bitcoin(10))
 	})
 
 	t.Run("withdraw insufficient funds", func(t *testing.T) {
-		startingBalance := Bitcoin(20)
-		wallet := Wallet{startingBalance}
+		wallet := Wallet{Bitcoin(20)}
 		err := wallet.Withdraw(Bitcoin(200))
 
 		assertError(t, err, ErrInsufficientFunds)
-		assertBalance(t, wallet, startingBalance)
+		assertBalance(t, wallet, Bitcoin(20))
 	})
 
 }
@@ -52,5 +49,14 @@ func assertError(t testing.TB, got, want error) {
 
 	if got != want {
 		t.Errorf("got %q want %q", got, want)
+	}
+}
+
+// go isntall github.com/kisielk/errcheck@latest
+func assertNoError(t testing.TB, got error) {
+	t.Helper()
+
+	if got != nil {
+		t.Fatal("got an error but didn't want one")
 	}
 }
